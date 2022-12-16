@@ -12,3 +12,16 @@ export const notify = name => {
     theme: 'light',
   });
 };
+
+export const notifyAuthReject = () => {
+  toast.error(`Enter valid login or password`, {
+    position: 'top-right',
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: 'light',
+  });
+};
