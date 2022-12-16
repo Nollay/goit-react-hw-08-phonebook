@@ -1,13 +1,5 @@
 import styled from 'styled-components';
-export const List = styled.label`
-  display: inline-flex;
-  min-width: 70%;
-  :not(:last-child) {
-    margin-bottom: 10px;
-  }
-  margin-left: auto;
-  margin-right: auto;
-`;
+
 export const ButtonRegister = styled.button`
   border-radius: 5px;
   border: none;
@@ -22,9 +14,16 @@ export const ButtonRegister = styled.button`
   padding: 5px 15px;
   font-size: 17px;
 `;
-export const Span = styled.span`
+export const List = styled.li`
   padding: 5px 5px;
-  margin: auto;
-  font-size: 17px;
+  border: 2px solid #f1b83c;
+  border-radius: 8px;
+  font-size: 20px;
   font-weight: 500;
+  text-decoration: none;
+  color: black;
+  :hover {
+    color: #ffffff;
+    background-color: #f1b83c;
+  }
 `;

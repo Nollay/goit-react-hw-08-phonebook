@@ -22,9 +22,8 @@ export const Button = styled.button`
   border: none;
   border: 1px solid black;
   cursor: pointer;
-  background-color: grey;
   :hover,
   :focus {
-    background-color: blue;
+    background-color: #f1b83c;
   }
 `;
