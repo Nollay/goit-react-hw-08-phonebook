@@ -1,4 +1,5 @@
-import { fetchContacts, addNewContact, deleteContact } from './operation';
+import { logOut } from './auth/operations';
+import { fetchContacts, addNewContact, deleteContact } from './operations';
 
 const { createSlice } = require('@reduxjs/toolkit');
 
@@ -42,5 +43,10 @@ export const contactsSlice = createSlice({
       state.items.splice(idx, 1);
     },
     [deleteContact.rejected]: rejected,
+    [logOut.fulfilled](state, payload) {
+      state.items = [];
+      state.isLoading = false;
+      state.error = null;
+    },
   },
 });

@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/operation';
+import { deleteContact } from 'redux/operations';
 import { getContacts, getFiler } from 'redux/selectors';
+
+import { ButtonDelete, List } from './ContactListStyled';
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
@@ -14,15 +16,15 @@ export const ContactList = () => {
   return (
     <ul>
       {visibleContacts.map(contact => (
-        <li key={contact.id}>
-          {contact.name}: {contact.phone}
-          <button
+        <List key={contact.id}>
+          {contact.name}: {contact.number}
+          <ButtonDelete
             type="button"
             onClick={() => deleteSelectedContact(contact.id)}
           >
             Delete
-          </button>
-        </li>
+          </ButtonDelete>
+        </List>
       ))}
     </ul>
   );

@@ -1,56 +1,49 @@
-import React, { useEffect } from 'react';
-import { ToastContainer } from 'react-toastify';
+import React, { useEffect, lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import { ContactForm } from './phonebook/contactForm/ContactForm';
-import { ContactList } from './phonebook/contactList/ContactList';
-import { Container } from './phonebook/container';
-import Filter from './phonebook/filter/Filter';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getLoading } from 'redux/selectors';
-import { fetchContacts } from 'redux/operation';
-import { Loader } from './phonebook/Loader/Loader';
+import { useDispatch } from 'react-redux';
+import { Layout } from './Layout';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
+import { refreshUser } from 'redux/auth/operations';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register/Register'));
+const LoginPage = lazy(() => import('../pages/Login/Login'));
+const ContactsPage = lazy(() => import('../pages/contacts/Contacts'));
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
-  const isLoading = useSelector(getLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
   return (
-    <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <Container>
-        <h2>Phonebook</h2>
-        <ContactForm />
-        <h2>Contacts</h2>
-        {isLoading && <Loader />}
-        {contacts.length > 1 && <Filter />}
-        {contacts.length > 0 ? (
-          <ContactList />
-        ) : (
-          <p
-            style={{
-              marginBottom: '25px',
-              lineHeight: '1.15',
-            }}
-          >
-            You have no contacts saved
-          </p>
-        )}
-      </Container>
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} end />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+      </Route>
+    </Routes>
   );
 };

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Dna } from 'react-loader-spinner';
-import { SpinLoader } from './Loader.style';
+import { ThreeDots } from 'react-loader-spinner';
+import { Test } from './Loader.style';
 
 export const Loader = () => {
   return (
-    <SpinLoader>
-      <Dna type="Dna" color="#00BFFF" height={80} width={80} />
-    </SpinLoader>
+    <Test>
+      <ThreeDots type="ThreeDots" color="#00BFFF" height={80} width={80} />
+    </Test>
   );
 };
